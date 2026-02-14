@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Naturalma – Preview funnel</title>
+  <link rel="stylesheet" href="/assets/site.v2.css" />
+</head>
+<body>
+  <div class="header">
+    <div class="header-inner">
+      <div class="brand">
+        <a href="/" aria-label="Naturalma Home">
+          <img src="/assets/logo-naturalma.jpg" alt="Naturalma" />
+        </a>
+      </div>
+      <nav class="nav" aria-label="Navigazione">
+        <a class="badge" href="/blog/melissa-rilassamento-e-sonno/">Blog</a>
+        <a class="badge" href="/l/melissa-routine-serale/">Mini‑guida</a>
+        <a class="badge" href="/area/melissa-routine-serale/">Area</a>
+      </nav>
+    </div>
+  </div>
+
+  <script>
+    window.NATURALMA_TRACK_ENDPOINT = window.NATURALMA_TRACK_ENDPOINT || "https://idzdbekfqjhctataukfu.functions.supabase.co/track-event";
+  </script>
+
+  <div class="container">
+    <div class="card">
+      <span class="badge" style="margin-bottom:10px">Preview</span>
+      <h1 class="h1">Stable Growth MVP – primo funnel (Melissa)</h1>
+      <p class="p">Scaffold statico minimale per test end‑to‑end (blog → landing → area). La parte dinamica (invio email + tracking) verrà collegata via Edge Function Supabase.</p>
+
+      <div class="hr"></div>
+      <div class="kv">
+        <div class="card" style="padding:16px;background:var(--surface2)">
+          <strong>1) Articolo blog</strong>
+          <p class="p">Claim‑safe, Naturalma‑only, con CTA.</p>
+          <p><a class="btn" href="/blog/melissa-rilassamento-e-sonno/" style="text-decoration:none">Apri articolo</a></p>
+        </div>
+        <div class="card" style="padding:16px;background:var(--surface2)">
+          <strong>2) Landing mini‑guida</strong>
+          <p class="p">Nome+Email → invio password (da collegare).</p>
+          <p><a class="btn" href="/l/melissa-routine-serale/" style="text-decoration:none">Apri landing</a></p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:space-between;align-items:flex-start">
+          <div>
+            <strong>NATURALMA S.R.L.</strong><br/>
+            P.IVA 03118441207 · REA BO-493308<br/>
+            Via Zanolini 15/4, 40126 Bologna (BO), Italia
+          </div>
+          <div style="text-align:right">
+            <a href="/pages/privacy/">Privacy Policy</a> ·
+            <a href="/pages/cookie-policy/">Cookie Policy</a> ·
+            <a href="#" onclick="window.NM_openCookiePrefs && window.NM_openCookiePrefs(); return false;">Impostazioni cookie</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/cookie-consent.js" defer></script>
+  <script src="/assets/tracking.js" defer></script>
+</body>
+</html>

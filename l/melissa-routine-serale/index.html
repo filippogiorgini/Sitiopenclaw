@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mini‑guida: Routine serale per rilassamento (Melissa) | Naturalma</title>
+  <meta name="description" content="Ricevi l’accesso via email alla mini‑guida Naturalma: checklist routine serale + modalità d’uso e avvertenze per Melissa (compresse o tintura madre analcoolica)." />
+  <link rel="stylesheet" href="/assets/site.v2.css" />
+</head>
+<body>
+  <div class="header">
+    <div class="header-inner">
+      <div class="brand">
+        <a href="/" aria-label="Naturalma Home">
+          <img src="/assets/logo-naturalma.jpg" alt="Naturalma" />
+        </a>
+      </div>
+      <nav class="nav" aria-label="Navigazione">
+        <a class="badge" href="/blog/melissa-rilassamento-e-sonno/">Blog</a>
+        <a class="badge" href="/l/melissa-routine-serale/">Mini‑guida</a>
+        <a class="badge" href="/area/melissa-routine-serale/">Area</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="hero" style="margin-bottom:18px">
+      <img src="/assets/img/001-serene-minimalist-botanical-hero-image-f.webp" alt="Routine serale – immagine botanica" loading="lazy" />
+    </div>
+
+    <div class="card">
+      <span class="badge">Mini‑guida</span>
+      <h1 class="h1">Routine serale per rilassamento (con Melissa)</h1>
+      <p class="p">Lasciaci nome ed email: ti invieremo la <strong>password</strong> per accedere all’area riservata e leggere la mini‑guida. È pensata per essere <strong>semplice</strong>, concreta, e facile da seguire anche nelle settimane più intense.</p>
+
+      <div class="note">
+        <p class="p" style="margin:0"><strong>Cosa trovi dentro:</strong> una checklist serale in 10 minuti + un riepilogo chiaro di modalità d’uso e avvertenze (compresse o tintura madre analcoolica).<br/>La password è <strong>fissa</strong> per questa mini‑guida. Se non trovi l’email, controlla anche spam/promozioni.</p>
+      </div>
+
+      <form id="leadForm" class="form">
+        <div class="field">
+          <label for="name">Nome</label>
+          <input id="name" name="name" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required placeholder="email@esempio.com" />
+        </div>
+        <button class="btn" type="submit" id="submitBtn">Invia e ricevi la password</button>
+        <div id="status" class="small"></div>
+      </form>
+
+      <div class="hr"></div>
+      <p class="small">Nota: riceverai un’email automatica con la password. Se vuoi, puoi richiederla di nuovo in qualsiasi momento.</p>
+
+      <div class="footer">
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:space-between;align-items:flex-start">
+          <div>
+            <strong>NATURALMA S.R.L.</strong><br/>
+            P.IVA 03118441207 · REA BO-493308<br/>
+            Via Zanolini 15/4, 40126 Bologna (BO), Italia
+          </div>
+          <div style="text-align:right">
+            <a href="/pages/privacy/">Privacy Policy</a> ·
+            <a href="/pages/cookie-policy/">Cookie Policy</a> ·
+            <a href="#" onclick="window.NM_openCookiePrefs && window.NM_openCookiePrefs(); return false;">Impostazioni cookie</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/cookie-consent.js" defer></script>
+  <script src="/assets/tracking.js" defer></script>
+<script>
+  // CONFIG
+  // Supabase Edge Function endpoint (project ref: idzdbekfqjhctataukfu)
+  window.NATURALMA_LEAD_ENDPOINT = window.NATURALMA_LEAD_ENDPOINT || "https://idzdbekfqjhctataukfu.functions.supabase.co/lead-submit";
+  window.NATURALMA_TRACK_ENDPOINT = window.NATURALMA_TRACK_ENDPOINT || "https://idzdbekfqjhctataukfu.functions.supabase.co/track-event";
+  window.NATURALMA_MINI_GUIDE_SLUG = 'melissa-routine-serale';
+
+  const form = document.getElementById('leadForm');
+  const statusEl = document.getElementById('status');
+  const btn = document.getElementById('submitBtn');
+
+  function setStatus(msg, kind){
+    statusEl.textContent = msg;
+    statusEl.style.color = kind === 'error' ? 'crimson' : 'var(--muted)';
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const endpoint = window.NATURALMA_LEAD_ENDPOINT;
+    if(!endpoint){
+      setStatus("Endpoint non configurato. (MVP: collegare Edge Function Supabase)", 'error');
+      return;
+    }
+
+    btn.disabled = true;
+    setStatus('Invio in corso…');
+
+    const payload = {
+      mini_guide_slug: 'melissa-routine-serale',
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      source: 'landing',
+      page_path: location.pathname
+    };
+
+    try{
+      if(window.NM_track) window.NM_track('lead_submit_click', {});
+      const headers = { 'content-type': 'application/json' };
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json().catch(()=> ({}));
+      if(!res.ok){
+        throw new Error(data.error || `HTTP ${res.status}`);
+      }
+      setStatus('Perfetto: controlla la tua email per la password.');
+      if(window.NM_track) window.NM_track('cta_click', { cta_key: 'landing_submit_success' });
+      form.reset();
+    } catch(err){
+      setStatus('Errore: ' + err.message, 'error');
+    } finally {
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
