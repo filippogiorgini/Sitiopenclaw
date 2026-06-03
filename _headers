@@ -1,0 +1,12 @@
+# Cloudflare Pages — politica di cache
+# Le regole successive hanno precedenza su quelle precedenti per lo stesso header.
+
+# Default (HTML e tutto il resto): sempre rivalidato.
+# Così aggiornamenti e cancellazioni di pagine si vedono subito, senza copie bloccate in cache.
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Asset statici (CSS/JS/immagini/font): cache 1 giorno.
+# Buona performance e si auto-rigenera entro 24h (gli asset sono versionati a mano, es. site.v2.css).
+/assets/*
+  Cache-Control: public, max-age=86400
