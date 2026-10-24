@@ -1,13 +1,14 @@
 # Cloudflare Pages — politica di cache
 # Le regole successive hanno precedenza su quelle precedenti per lo stesso header.
 
+# naturalma.net è il dominio dei servizi interni: fuori dai motori di ricerca (24/10/2026),
+# insieme a preview.naturalma.net e sitiopenclaw.pages.dev. Non usare Disallow in robots.txt:
+# bloccherebbe la lettura del noindex.
+
 # Default (HTML e tutto il resto): sempre rivalidato.
 # Così aggiornamenti e cancellazioni di pagine si vedono subito, senza copie bloccate in cache.
 /*
   Cache-Control: public, max-age=0, must-revalidate
-  # naturalma.net è il dominio dei servizi interni: fuori dai motori di ricerca (24/10/2026).
-  # Vale anche per preview.naturalma.net e sitiopenclaw.pages.dev. Non usare Disallow in robots.txt:
-  # bloccherebbe la lettura di questo noindex.
   X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
 
 # Asset statici (CSS/JS/immagini/font): cache 1 giorno.
